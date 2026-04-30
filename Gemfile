@@ -16,7 +16,7 @@ gem "devise", ">= 5.0.3"  # 4.9.x has CVE-2026-32700 (Confirmable token timing l
 gem "ruby_llm", "~> 1.3"
 
 # Vector similarity search (pgvector)
-gem "neighbor", "~> 0.4"
+gem "neighbor", "~> 1.0"
 
 # Hotwire — real-time UI updates via Turbo Streams
 gem "importmap-rails"
