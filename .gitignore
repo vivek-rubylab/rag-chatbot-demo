@@ -1,0 +1,17 @@
+.env
+*.log
+/log/*
+/tmp/*
+/storage/*
+/node_modules
+/public/assets
+/public/packs
+.byebug_history
+.DS_Store
+coverage/
+
+# Ignore key files and encrypted credentials — regenerate locally with:
+#   bin/rails credentials:edit
+/config/*.key
+/config/credentials.yml.enc
+

@@ -1,0 +1,102 @@
+# Synonym substitutions for QueryNormaliser.
+#
+# Applied in order before any search — no LLM involved.
+# Order matters: longer / more specific patterns should come first
+# to avoid partial matches clobbering later rules.
+#
+# Each entry:
+#   pattern:     Ruby regex (compiled with /pattern/i — case-insensitive)
+#   replacement: plain string to substitute
+#
+# To adapt this for a different domain, replace or extend these entries.
+# Common additions: product names, internal codes, brand abbreviations.
+
+substitutions:
+  # ── Exam shorthand ──────────────────────────────────────────────────────────
+  # Note: \b does not fire after '+' (non-word char), so use a lookahead instead.
+  - pattern: '\b11\s*\+(?=\s|$|[[:punct:]])'
+    replacement: "eleven plus"
+  - pattern: '\b11\s*plus\b'
+    replacement: "eleven plus"
+  - pattern: '\beleven[-\s]plus\b'
+    replacement: "eleven plus"
+
+  # ── Subjects ─────────────────────────────────────────────────────────────────
+  - pattern: '\bnvr\b'
+    replacement: "non-verbal reasoning"
+  - pattern: '\bnon[-\s]verbal(?!\s+reasoning)\b'
+    replacement: "non-verbal reasoning"
+  - pattern: '\bvr\b'
+    replacement: "verbal reasoning"
+  - pattern: '\bverbal\b(?!\s+reasoning)'
+    replacement: "verbal reasoning"
+  - pattern: '\bnumeracy\b'
+    replacement: "maths"
+  - pattern: '\bmathematics\b'
+    replacement: "maths"
+  - pattern: '\bliteracy\b'
+    replacement: "english"
+  - pattern: '\bcomprehension\b'
+    replacement: "english"
+
+  # ── Exam boards ──────────────────────────────────────────────────────────────
+  - pattern: '\bgranada\b'
+    replacement: "GL Assessment"
+  - pattern: '\bgl\b'
+    replacement: "GL Assessment"
+  - pattern: '\bdurham\b'
+    replacement: "CEM"
+  - pattern: '\bcem\b'
+    replacement: "CEM"
+
+  # ── Year groups ──────────────────────────────────────────────────────────────
+  # Explicit Y-notation first (Y3/Y4/Y5/Y6 — common shorthand in UK schools)
+  - pattern: '\bY3\b'
+    replacement: "year 3"
+  - pattern: '\bY4\b'
+    replacement: "year 4"
+  - pattern: '\bY5\b'
+    replacement: "year 5"
+  - pattern: '\bY6\b'
+    replacement: "year 6"
+  # Flexible yr/year prefix patterns (covers yr3, yr 3, yr-3, y3, y 3, etc.)
+  - pattern: '\byr?[\s\-]?3\b'
+    replacement: "year 3"
+  - pattern: '\byr?[\s\-]?4\b'
+    replacement: "year 4"
+  - pattern: '\byr?[\s\-]?5\b'
+    replacement: "year 5"
+  - pattern: '\byr?[\s\-]?6\b'
+    replacement: "year 6"
+  - pattern: '\byear[\s\-]?3\b'
+    replacement: "year 3"
+  - pattern: '\byear[\s\-]?4\b'
+    replacement: "year 4"
+  - pattern: '\byear[\s\-]?5\b'
+    replacement: "year 5"
+  - pattern: '\byear[\s\-]?6\b'
+    replacement: "year 6"
+
+  # ── Admissions / entry ───────────────────────────────────────────────────────
+  - pattern: '\badmissions?\s+test\b'
+    replacement: "admissions test"
+  - pattern: '\bentry\s+(test|exam|requirements?)\b'
+    replacement: "admissions test"
+  - pattern: '\bdo\s+i\s+need\s+a\s+test\b'
+    replacement: "admissions test"
+  - pattern: '\brequired\s+to\s+(sit|take|do)\b'
+    replacement: "admissions test"
+
+  # ── Delivery format ──────────────────────────────────────────────────────────
+  - pattern: '\bremote\b'
+    replacement: "online"
+  - pattern: '\bvirtual\b'
+    replacement: "online"
+  - pattern: '\bzoom\b'
+    replacement: "online"
+  - pattern: '\bface[\s\-]to[\s\-]face\b'
+    replacement: "in-person"
+  - pattern: '\bin[\s\-]person\b'
+    replacement: "in-person"
+  - pattern: '\bclassroom\b'
+    replacement: "in-person"

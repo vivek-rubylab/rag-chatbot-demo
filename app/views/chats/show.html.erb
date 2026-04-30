@@ -1,0 +1,76 @@
+<div class="chat-page">
+  <div class="chat-window">
+
+    <div class="chat-header">
+      <div class="chat-header-avatar">🤖</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">11+ Tutor Assistant</div>
+        <div class="chat-header-status">
+          <span class="status-dot"></span> Online
+        </div>
+      </div>
+    </div>
+
+    <%= turbo_stream_from "chat_#{@chat.id}" %>
+
+    <div class="chat-messages" id="chat-messages">
+      <% if @messages.empty? %>
+        <div class="chat-welcome">
+          <div class="chat-welcome-icon">👋</div>
+          <h3>Hi there!</h3>
+          <p>Ask me about courses, subjects, exam boards, or online vs in-person options.</p>
+          <div class="chat-welcome-suggestions">
+            <button class="suggestion-chip" onclick="fillInput(this)">What year groups do you teach?</button>
+            <button class="suggestion-chip" onclick="fillInput(this)">Is online the same as in-person?</button>
+            <button class="suggestion-chip" onclick="fillInput(this)">What is the 11+ exam?</button>
+            <button class="suggestion-chip" onclick="fillInput(this)">Do you offer mock exams?</button>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: "chats/message", collection: @messages, as: :message %>
+      <% end %>
+    </div>
+
+    <div id="chat-error"></div>
+
+    <%= render partial: "chats/composer" %>
+
+  </div>
+</div>
+
+<script>
+  function scrollToBottom() {
+    const el = document.getElementById('chat-messages');
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+  scrollToBottom();
+
+  // Guard against Turbo page-cache replaying this script on back-navigation,
+  // which would stack up duplicate listeners on document and fire submit N times.
+  if (!window.__chatListenersRegistered) {
+    window.__chatListenersRegistered = true;
+
+    // Delegated keydown — survives Turbo replacing the composer partial
+    document.addEventListener('keydown', function(e) {
+      if (e.target.id === 'chat-input' && e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        e.target.closest('form').requestSubmit();
+      }
+    });
+
+    document.addEventListener('turbo:submit-start', function(e) {
+      if (e.target.id === 'chat-form') {
+        document.querySelector('.chat-welcome')?.remove();
+      }
+    });
+
+    document.addEventListener('turbo:before-stream-render', function() {
+      setTimeout(scrollToBottom, 60);
+    });
+  }
+
+  function fillInput(btn) {
+    const input = document.getElementById('chat-input');
+    if (input) { input.value = btn.textContent; input.focus(); }
+  }
+</script>

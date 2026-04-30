@@ -1,0 +1,59 @@
+# Entity definitions for EntityExtractor and KnowledgeRetriever.
+#
+# Two sections:
+#   patterns  — regex used to detect entities in a normalised query
+#   keywords  — plain strings used for entity boost scoring in retrieval
+#
+# To adapt for a different domain:
+#   - Replace the dimension names (years, subjects, formats, exam_boards)
+#     with your own (e.g. regions, product_lines, tiers)
+#   - Update patterns and keywords to match your vocabulary
+#   - Update EntityExtractor and KnowledgeRetriever to reference your dimensions
+
+# ── Patterns (compiled with /pattern/i — case-insensitive) ───────────────────
+patterns:
+  years:
+    year_3: '\byear\s*3\b'
+    year_4: '\byear\s*4\b'
+    year_5: '\byear\s*5\b'
+    year_6: '\byear\s*6\b'
+
+  subjects:
+    english: '\benglish\b'
+    maths:   '\bmaths\b'
+    vr:      '(?<!non-)\bverbal\s+reasoning\b'
+    nvr:     '\bnon-verbal\s+reasoning\b'
+
+  formats:
+    online:       '\bonline\b'
+    in_person:    '\bin-person\b'
+    admissions:   '\badmissions\s+test\b'
+
+  exam_boards:
+    gl:   '\bGL\s+Assessment\b'
+    cem:  '\bCEM\b'
+    iseb: '\bISEB\b'
+
+# ── Keywords (plain strings matched against knowledge entry text) ─────────────
+keywords:
+  years:
+    year_3: ["year 3"]
+    year_4: ["year 4"]
+    year_5: ["year 5"]
+    year_6: ["year 6"]
+
+  subjects:
+    english: ["english"]
+    maths:   ["maths", "mathematics"]
+    vr:      ["verbal reasoning"]
+    nvr:     ["non-verbal reasoning"]
+
+  formats:
+    online:     ["online"]
+    in_person:  ["in-person", "in person"]
+    admissions: ["admissions test", "admissions"]
+
+  exam_boards:
+    gl:   ["gl assessment", "gl"]
+    cem:  ["cem"]
+    iseb: ["iseb"]

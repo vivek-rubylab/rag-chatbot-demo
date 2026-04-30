@@ -1,0 +1,29 @@
+<div class="max-w-2xl mx-auto px-4 py-16 text-center">
+  <h1 class="text-2xl font-semibold text-gray-800 mb-2">11+ Tutor Chat</h1>
+  <p class="text-gray-500 mb-8">Ask about courses, subjects, exam boards, and delivery formats.</p>
+
+  <%= button_to "Start a new chat", chats_path,
+        method: :post,
+        class: "inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg" %>
+
+  <% if @chats.any? %>
+    <div class="mt-12 text-left">
+      <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">Previous chats</h2>
+      <ul class="space-y-2">
+        <% @chats.each do |chat| %>
+          <li>
+            <%= link_to chat_path(chat), class: "flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-sm transition" do %>
+              <span class="text-sm text-gray-700">
+                Chat #<%= chat.id %>
+                <span class="text-gray-400 ml-2 text-xs">
+                  <%= chat.messages.count %> message<%= chat.messages.count == 1 ? "" : "s" %>
+                </span>
+              </span>
+              <span class="text-xs text-gray-400"><%= chat.created_at.strftime("%d %b %Y") %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

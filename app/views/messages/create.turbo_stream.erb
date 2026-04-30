@@ -1,0 +1,24 @@
+<%# Append the user's message immediately %>
+<%= turbo_stream.append "chat-messages" do %>
+  <%= render partial: "chats/message", locals: { message: @message } %>
+<% end %>
+
+<%# Reset the composer %>
+<%= turbo_stream.replace "chat-composer" do %>
+  <%= render partial: "chats/composer" %>
+<% end %>
+
+<%# Append thinking indicator %>
+<%= turbo_stream.append "chat-messages" do %>
+  <div id="chat-thinking" class="msg msg--assistant">
+    <div class="msg-avatar msg-avatar--bot">🤖</div>
+    <div class="msg-body">
+      <div class="msg-bubble msg-bubble--thinking">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%# Clear any previous error %>
+<%= turbo_stream.replace "chat-error" do %><% end %>

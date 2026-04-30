@@ -1,0 +1,16 @@
+<div class="msg msg--<%= message.role %>" id="message-<%= message.id %>">
+  <% if message.role == "assistant" %>
+    <div class="msg-avatar msg-avatar--bot">🤖</div>
+  <% end %>
+
+  <div class="msg-body">
+    <div class="msg-bubble">
+      <%= chat_markdown(message.content) %>
+    </div>
+    <div class="msg-time"><%= message.created_at.strftime("%H:%M") %></div>
+  </div>
+
+  <% if message.role == "user" %>
+    <div class="msg-avatar msg-avatar--user">🎓</div>
+  <% end %>
+</div>
