@@ -1,0 +1,22 @@
+<div class="chat-composer" id="chat-composer">
+  <%= form_with url: chat_messages_path(@chat),
+                html: { id: "chat-form" },
+                data: { turbo: true } do |f| %>
+    <div class="composer-inner">
+      <%= f.text_area :content,
+                      name: "message[content]",
+                      id: "chat-input",
+                      placeholder: "Message…",
+                      class: "composer-input",
+                      rows: 1,
+                      maxlength: 1000,
+                      autocomplete: "off" %>
+      <%= f.button type: "submit", class: "composer-send" do %>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      <% end %>
+    </div>
+    <p class="composer-hint">Enter to send · Shift+Enter for new line</p>
+  <% end %>
+</div>
