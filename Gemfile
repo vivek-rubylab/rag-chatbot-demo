@@ -5,7 +5,7 @@ ruby "~> 3.2"
 
 gem "rails", "~> 8.0"
 gem "pg",    "~> 1.5"       # PostgreSQL adapter
-gem "puma",  "~> 6.0"       # Web server
+gem "puma",  "~> 8.0"       # Web server
 gem "propshaft"             # Asset pipeline — serves JS/CSS from gems and app/assets
 gem "bootsnap", require: false
 
