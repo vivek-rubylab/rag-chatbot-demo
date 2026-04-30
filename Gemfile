@@ -35,7 +35,7 @@ gem "rack-attack"
 group :development, :test do
   gem "dotenv-rails"        # loads .env for local dev
   gem "debug"
-  gem "rspec-rails",    "~> 7.0"
+  gem "rspec-rails",    "~> 8.0"
   gem "brakeman",       require: false  # static security analysis (CI)
   gem "bundler-audit",  require: false  # known CVE checks for gems (CI)
 end
